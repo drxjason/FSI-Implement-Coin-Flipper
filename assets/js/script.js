@@ -1,27 +1,56 @@
 // TODO: Declare any global variables we need
 
+let headsRolls = 0
+let tailsRolls = 0
+let totalRolls = 0
 
 document.addEventListener('DOMContentLoaded', function () {
-    // This is just a sanity check to make sure your JavaScript script is getting loaded
-    // You can remove it once you see it in your browser console in the developer tools
-    console.log('Hi')
+    // Implement Flipped coin mechanism
 
-    // TODO: Add event listener and handler for flip and clear buttons
+    document.getElementById('flip').addEventListener('click', () => {
+        let flippedHeads = Math.random() < 0.5
 
-    // Flip Button Click Handler
-        // TODO: Determine flip outcome
-        // TODO: Update image and status message in the DOM
+        if (flippedHeads) {
+            document.getElementById('penny-picture').src = 'assets/images/penny-heads.jpg'
+            document.getElementById('message').textContent = "Flipped Heads"
 
-        // Update the scorboard
-        // TODO: Calculate the total number of rolls/flips
-        // Make variables to track the percentages of heads and tails
-        // TODO: Use the calculated total to calculate the percentages
-        // HINT: Make sure not to divide by 0! (if total is 0, percent will be 0 as well)
-        // TODO: Update the display of each table cell
+            headsRolls++
+            totalRolls++
+        }
 
+        else {
+            document.getElementById('penny-picture').src = 'assets/images/penny-tails.jpg'
+            document.getElementById('message').textContent = "Flipped Tails"
 
-    // Clear Button Click Handler
-        // TODO: Reset global variables to 0
-        // TODO: Update the scoreboard (same logic as in flip button click handler)
+            tailsRolls++
+            totalRolls++
+        }
 
+        let headsPercent = Math.round((headsRolls / totalRolls) * 100)
+        let tailsPercent = Math.round((tailsRolls / totalRolls) * 100)
+
+        document.getElementById('heads-percent').textContent = `${headsPercent}%`
+        document.getElementById('tails-percent').textContent = `${tailsPercent}%`
+
+        document.getElementById('heads').textContent = headsRolls
+        document.getElementById('tails').textContent = tailsRolls
+
+        console.log(totalRolls)
+    })
+
+    // Reset all variables to 0 and set message to default
+
+    document.getElementById('clear').addEventListener('click', () => {
+        headsRolls = 0
+        tailsRolls = 0
+        totalRolls = 0
+        let headsPercent = 0
+        let tailsPercent = 0
+
+        document.getElementById('heads').textContent = headsRolls
+        document.getElementById('tails').textContent = tailsRolls
+        document.getElementById('heads-percent').textContent = `${headsPercent}%`
+        document.getElementById('tails-percent').textContent = `${tailsPercent}%`
+        document.getElementById('message').textContent = "Lets Get Rolling!"
+    })
 })
